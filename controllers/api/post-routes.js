@@ -4,7 +4,6 @@ const { Post, User, Comment, Vote } = require('../../models');
 
 // get all users
 router.get('/', (req, res) => {
-  console.log('======================');
   Post.findAll({
     attributes: [
       'id',
@@ -29,13 +28,18 @@ router.get('/', (req, res) => {
       }
     ]
   })
-    .then(dbPostData => res.json(dbPostData))
+    .then(dbPostData => {
+      console.log(dbPostData[0]);
+      const posts= dbPostData.map(post => post.get({ plain:true }));
+      res.render('homepage', { posts });
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
 });
 
+// geta specific post
 router.get('/:id', (req, res) => {
   Post.findOne({
     where: {
@@ -76,8 +80,8 @@ router.get('/:id', (req, res) => {
     });
 });
 
+// create a new post
 router.post('/', (req, res) => {
-  // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
   Post.create({
     title: req.body.title,
     post_url: req.body.post_url,
@@ -90,6 +94,7 @@ router.post('/', (req, res) => {
     });
 });
 
+// update a post with a vote
 router.put('/upvote', (req, res) => {
   // custom static method created in models/Post.js
   Post.upvote(req.body, { Vote, Comment, User })
@@ -100,6 +105,7 @@ router.put('/upvote', (req, res) => {
     });
 });
 
+// update a post
 router.put('/:id', (req, res) => {
   Post.update(
     {
@@ -124,6 +130,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// delete a post
 router.delete('/:id', (req, res) => {
   Post.destroy({
     where: {

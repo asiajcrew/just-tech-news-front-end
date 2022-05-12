@@ -1,0 +1,39 @@
+{{!-- login form --}}
+<form class="login-form">
+    {{!-- input email and pw --}}
+    <div>
+        <label for="email-login">email:</label>
+        <input type="text" id="email-login" />
+    </div>
+    <div>
+        <label for="password-login">password:</label>
+        <input type="password" id="password-login" /> 
+    </div>
+    {{!-- click submit --}}
+    <div>
+        <button type="submit">Login</button>
+    </div>
+</form>
+
+{{!-- signup form --}}
+<form class="signup-form">
+  <div>
+      {{!-- input username, email, and pw --}}
+    <label for="username-signup">username:</label>
+    <input type="text" id="username-signup" />
+  </div>
+  <div>
+    <label for="email-signup">email:</label>
+    <input type="text" id="email-signup" />
+  </div>
+  <div>
+    <label for="password-signup">password:</label>
+    <input type="password" id="password-signup" />
+  </div>
+  <div>
+      {{!-- click submit --}}
+    <button type="submit">Sign up</button>
+  </div>
+</form>
+
+<script src="/javascript/login.js"></script>
